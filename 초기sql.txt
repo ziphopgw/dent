@@ -1,0 +1,116 @@
+/* Formatted on 2019/06/23 15:32 (QP5 v5.50) */
+CREATE TABLE `gw_board` (
+  `idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `code` varchar(40) NOT NULL,
+  `reg_date` varchar(14) NOT NULL,
+  PRIMARY KEY (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Formatted on 2019/06/23 15:32 (QP5 v5.50) */
+CREATE TABLE `gw_board_category` (
+  `idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `board_idx` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `reg_date` varchar(14) DEFAULT NULL,
+  PRIMARY KEY (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Formatted on 2019/06/23 15:32 (QP5 v5.50) */
+CREATE TABLE `gw_board_data` (
+  `idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `board_idx` int(11) DEFAULT NULL,
+  `category_idx` int(11) DEFAULT NULL,
+  `is_notice` char(1) CHARACTER SET latin1 DEFAULT NULL,
+  `is_secret` char(1) CHARACTER SET latin1 DEFAULT NULL,
+  `subject` varchar(250) DEFAULT NULL,
+  `content` longtext,
+  `youtube_url` varchar(500) NOT NULL,
+  `stream_url` varchar(500) NOT NULL,
+  `stream_url_pc` varchar(500) NOT NULL,
+  `hit` int(11) NOT NULL DEFAULT '0',
+  `password` varchar(100) DEFAULT NULL,
+  `userid` varchar(30) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `nick_name` varchar(50) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `last_update` datetime DEFAULT NULL,
+  `ipaddress` varchar(20) DEFAULT NULL,
+  `reg_date` datetime DEFAULT NULL,
+  `tag` varchar(1000) DEFAULT NULL,
+  `notice_start_date` datetime DEFAULT NULL,
+  `notice_end_date` datetime DEFAULT NULL,
+  `is_show` char(1) CHARACTER SET latin1 DEFAULT 'N',
+  `sort` int(11) NOT NULL DEFAULT '0',
+  `homepage` varchar(500) DEFAULT NULL,
+  `is_show_main` char(1) CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Formatted on 2019/06/23 15:33 (QP5 v5.50) */
+CREATE TABLE `gw_board_file` (
+  `idx` int(11) NOT NULL AUTO_INCREMENT,
+  `board_data_idx` int(11) DEFAULT NULL,
+  `filetype` varchar(30) NOT NULL DEFAULT 'file',
+  `filename` varchar(250) DEFAULT NULL,
+  `origin_filename` varchar(250) DEFAULT NULL,
+  `filesize` bigint(20) DEFAULT NULL,
+  `ipaddress` varchar(20) DEFAULT NULL,
+  `reg_date` varchar(14) DEFAULT NULL,
+  PRIMARY KEY (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Formatted on 2019/06/23 15:33 (QP5 v5.50) */
+CREATE TABLE `gw_comment` (
+  `idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `board_idx` int(11) NOT NULL,
+  `board_data_idx` int(11) NOT NULL,
+  `parent_idx` int(11) DEFAULT NULL,
+  `is_secret` char(1) CHARACTER SET latin1 NOT NULL DEFAULT 'N',
+  `content` longtext,
+  `voted_count` int(11) DEFAULT NULL,
+  `blamed_count` int(11) DEFAULT NULL,
+  `password` varchar(200) DEFAULT NULL,
+  `userid` varchar(30) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `nick_name` varchar(30) DEFAULT NULL,
+  `member_idx` int(11) DEFAULT NULL,
+  `reg_date` varchar(14) NOT NULL,
+  `last_update` varchar(14) DEFAULT NULL,
+  `ipaddress` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`idx`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+/* Formatted on 2019/06/23 15:33 (QP5 v5.50) */
+CREATE TABLE `gw_member` (
+  `idx` bigint(11) NOT NULL AUTO_INCREMENT,
+  `userid` varchar(80) NOT NULL,
+  `passwd` varchar(60) NOT NULL,
+  `email` varchar(250) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `nick_name` varchar(40) NOT NULL,
+  `homepage` varchar(250) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `blog` varchar(250) DEFAULT NULL,
+  `birthday` char(8) DEFAULT NULL,
+  `send_email` char(1) NOT NULL DEFAULT 'Y',
+  `send_sms` char(1) NOT NULL DEFAULT 'Y',
+  `authdi` varchar(500) NOT NULL,
+  `authci` varchar(500) NOT NULL,
+  `deny` char(1) DEFAULT 'N',
+  `limit_date` datetime DEFAULT NULL,
+  `reg_date` datetime DEFAULT NULL,
+  `last_date` datetime DEFAULT NULL,
+  `is_admin` char(1) DEFAULT 'N',
+  `description` text,
+  `extra_vars` text,
+  `admin_level` int(11) NOT NULL DEFAULT '0',
+  `user_group` varchar(20) NOT NULL,
+  `note` text NOT NULL,
+  PRIMARY KEY (`idx`),
+  KEY `idx_allow_mailing` (`send_email`),
+  KEY `idx_is_denied` (`deny`),
+  KEY `idx_regdate` (`reg_date`),
+  KEY `idx_last_login` (`last_date`),
+  KEY `idx_is_admin` (`is_admin`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
